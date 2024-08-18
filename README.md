@@ -1,24 +1,4 @@
-# vuedongsun
 
-## Project setup
-```
-npm install
-```
+# VueDongsan
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 코딩애플 vue 강의 - 부동산 쇼핑몰
