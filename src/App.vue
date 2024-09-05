@@ -14,7 +14,7 @@
     </div>
 
     <div class="list" v-for="(list, i) in products" :key="i">
-      <img src="./assets/room0.jpg" class="room-img"/>
+        <img :src="roomPic[i]" class="room-img" />
       <h4 @click="openModal">{{list}}</h4>
       <p>60 만원</p>
       <button @click="increase(i)">허위매물 신고</button> <span>신고 수 : {{reportCnt[i]}}</span>
@@ -29,6 +29,7 @@
       return{
         menuItems : ['Home', 'Shop', 'About'],
         products : ['역삼동 원룸', '천호동 원룸', '마포구 원룸'],
+        roomPic: [require('@/assets/room0.jpg'), require('@/assets/room1.jpg'), require('@/assets/room2.jpg')], // src에 대해 상대 경로로 설정해야 함, 빌드 시 require 또는 import를 통해 가져옴
         reportCnt : [0, 0, 0],
         modalOpen : false,
       }
