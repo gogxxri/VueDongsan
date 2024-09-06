@@ -1,28 +1,10 @@
 <template>
-
   <div>
-    <div v-if="1==2">
-      참이면 보여주고
-    </div>
-    <div v-else-if="1===3">
-      참이 아니라...일때 보여주고
-    </div>
-        <div v-else>
-      참이 아닐때 보여주고
-    </div>
-    <div class="black-bg" v-if="modalOpen">
-      <div class="white-bg">
-        <img :src="onerooms[selectedID].image"/>
-        <h4>{{ onerooms[selectedID].title }}</h4>
-        <h6>{{ onerooms[selectedID].content }}</h6>
-        <p>{{ onerooms[selectedID].price }} 원</p>
-        <button @click="closeModal">닫기</button>
-      </div>  
-    </div>
-
     <div class="menu">
       <a v-for="(nav,i) in menuItems" :key="i">{{nav}}</a>
     </div>
+
+    <DiscountBanner />
 
     <div class="list" v-for="(room) in onerooms" :key="room.id" @click="openModal(room.id)">
       <img :src="room.image" class="room-img" />
@@ -30,13 +12,16 @@
       <p>{{room.price}} 원</p>
       <button @click.stop="increase(room.id)">허위매물 신고</button> <span>신고 수 : {{ room.reportCnt }}</span> 
     </div>
+
+    <DetailModal :onerooms="onerooms" :selectedID="selectedID"/>
   </div>
 </template>
 
 <script>
-  import onerooms from './assets/oneroom.js';
+import onerooms from './assets/oneroom.js';
+import DetailModal from './components/DetailModal.vue';
+import DiscountBanner from './components/Discount.vue';
 
- 
   export default {
     name: 'App',
     data(){
@@ -57,7 +42,8 @@
          this.modalOpen = false;
       }
     }, components:{
-
+        DiscountBanner : DiscountBanner,
+        DetailModal,
     },
   }
   </script>
