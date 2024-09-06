@@ -1,10 +1,21 @@
 <template>
 
   <div>
-    <div class="black-bg" v-if="modalOpen == true">
+    <div v-if="1==2">
+      참이면 보여주고
+    </div>
+    <div v-else-if="1===3">
+      참이 아니라...일때 보여주고
+    </div>
+        <div v-else>
+      참이 아닐때 보여주고
+    </div>
+    <div class="black-bg" v-if="modalOpen">
       <div class="white-bg">
-        <h4>상세페이지</h4>
-        <p>상세페이지임</p>
+        <img :src="onerooms[selectedID].image"/>
+        <h4>{{ onerooms[selectedID].title }}</h4>
+        <h6>{{ onerooms[selectedID].content }}</h6>
+        <p>{{ onerooms[selectedID].price }} 원</p>
         <button @click="closeModal">닫기</button>
       </div>  
     </div>
@@ -13,11 +24,11 @@
       <a v-for="(nav,i) in menuItems" :key="i">{{nav}}</a>
     </div>
 
-    <div class="list" v-for="(list, i) in onerooms" :key="i">
-      <img :src="onerooms[i].image" class="room-img" />
-      <!-- <h4 @click="openModal">{{list}}</h4>
-      <p>60 만원</p>
-      <button @click="increase(i)">허위매물 신고</button> <span>신고 수 : {{reportCnt[i]}}</span> -->
+    <div class="list" v-for="(room) in onerooms" :key="room.id" @click="openModal(room.id)">
+      <img :src="room.image" class="room-img" />
+      <h4>{{room.title}}</h4>
+      <p>{{room.price}} 원</p>
+      <button @click.stop="increase(room.id)">허위매물 신고</button> <span>신고 수 : {{ room.reportCnt }}</span> 
     </div>
   </div>
 </template>
@@ -30,6 +41,7 @@
     name: 'App',
     data(){
       return{
+        selectedID : 0,
         onerooms: onerooms,
         menuItems : ['Home', 'Shop', 'About'],
         modalOpen : false,
@@ -37,13 +49,13 @@
 
     }, methods : {
       increase(idx){
-        this.reportCnt[idx]++;
-      }, openModal(){
-         this.modalOpen = true; 
+        this.onerooms[idx].reportCnt++;
+      }, openModal(idx){
+          this.selectedID = idx;
+          this.modalOpen = true;
       }, closeModal(){
          this.modalOpen = false;
       }
-
     }, components:{
 
     },
@@ -88,5 +100,9 @@ div {
   background :white;
   border-radius : 8px;
   padding :20px;
+
+}
+.white-bg img {
+    width : 80%;
 }
 </style>
