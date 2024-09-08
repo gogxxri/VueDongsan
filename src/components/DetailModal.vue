@@ -6,7 +6,7 @@
       <h6>{{ onerooms[selectedID].content }}</h6>
       <p>{{ onerooms[selectedID].price }} 원</p>
       <DiscountBanner />
-      <!--<button @click="closeModal">닫기</button>-->
+      <button @click="closeModal">닫기</button>
     </div>
   </div>
 </template>
@@ -24,6 +24,11 @@ export default {
   components: {
     DiscountBanner,
   },
+   methods: {
+    closeModal() {
+      this.$emit('closeModal');
+    }
+  }
 };
 </script>
 

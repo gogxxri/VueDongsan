@@ -3,19 +3,10 @@
     <div class="menu">
       <a v-for="(nav, i) in menuItems" :key="i">{{ nav }}</a>
     </div>
-
     <DiscountBanner />
-
-    <div class="list" v-for="(room) in onerooms" :key="room.id" @click="openModal(room.id)">
-      <img :src="room.image" class="room-img" />
-      <h4>{{ room.title }}</h4>
-      <p>{{ room.price }} 원</p>
-      <button @click.stop="increase(room.id)">허위매물 신고</button> 
-      <span>신고 수: {{ room.reportCnt }}</span> 
-    </div>
-
+    <InfoCard v-for="(room) in onerooms" :key="room.id" @openModal="modalOpen=true; selectedID=$event" :room="room" @increase="increase"/>
     <DetailModal
-      :onerooms="onerooms" :selectedID="selectedID" :modalOpen="modalOpen"
+      :onerooms="onerooms" :selectedID="selectedID" :modalOpen="modalOpen" @closeModal="closeModal"
     />
   </div>
 </template>
@@ -24,6 +15,7 @@
 import onerooms from './assets/oneroom.js';
 import DetailModal from './components/DetailModal.vue';
 import DiscountBanner from './components/Discount.vue';
+import InfoCard from './components/InfoCard';
 
 export default {
   name: 'App',
@@ -53,6 +45,7 @@ export default {
   components: {
     DetailModal,
     DiscountBanner,
+    InfoCard
   },
 };
 </script>
