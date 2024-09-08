@@ -3,11 +3,16 @@
     <div class="menu">
       <a v-for="(nav, i) in menuItems" :key="i">{{ nav }}</a>
     </div>
+
     <DiscountBanner />
+
     <InfoCard v-for="(room) in onerooms" :key="room.id" @openModal="modalOpen=true; selectedID=$event" :room="room" @increase="increase"/>
-    <DetailModal
-      :onerooms="onerooms" :selectedID="selectedID" :modalOpen="modalOpen" @closeModal="closeModal"
-    />
+    
+    <Transition name="fade">
+      <DetailModal
+        :onerooms="onerooms" :selectedID="selectedID" :modalOpen="modalOpen" @closeModal="closeModal"
+      />
+    </Transition>
   </div>
 </template>
 
@@ -51,6 +56,30 @@ export default {
 </script>
 
 <style>
+/* <Transition>을 사용할 때 다음 3개 만들어서 사용*/
+.fade-enter-from{    /*시작*/
+  opacity : 0;
+  transform : translateY(-1000px);
+} 
+.fade-enter-active{
+  transition : all 1s;  /*애니메이션 */
+}
+.fade-enter-to{
+  opacity : 1;      /*끝*/
+}
+
+/* <Transition>을 퇴장 애니메이션*/
+.fade-leave-from{    /*시작*/
+  opacity : 1;
+} 
+.fade-leave-active{
+  transition : all 1s;  /*애니메이션 */
+}
+.fade-leave-to{
+  opacity : 0;      /*끝*/
+  transform : translateY(-1000px);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
@@ -95,5 +124,13 @@ export default {
 
 .white-bg img {
   width: 80%;
+}
+
+.start{
+  opacity : 0;
+  transition : all 1s;
+}
+.end {
+  opacity : 1;
 }
 </style>

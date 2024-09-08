@@ -5,9 +5,8 @@
       <h4>{{ onerooms[selectedID].title }}</h4>
       <h6>{{ onerooms[selectedID].content }}</h6>
       <p>{{ onerooms[selectedID].price}} 원</p>
-      <input v-model="month" @keydown="handleKeydown"/>개월 
-      <!-- 1개월 <input type="range" min="1" max="12"  v-model.number="month"/> 12개월 -->
-      <!-- <p>month</p> -->
+      <!-- <input v-model="month" @keydown="handleKeydown"/>개월  -->
+      1개월 <input type="range" min="1" max="12"  v-model.number="month"/> 12개월 
       <p>{{month}}개월 : {{ onerooms[selectedID].price * month }} 원</p>
       <DiscountBanner />
       <button @click="closeModal">닫기</button>
@@ -25,14 +24,14 @@ export default {
       month : 1,
     }
   }, 
-  watch : {
-    month(inputM){ 
-      if(isNaN(inputM)){
-        alert("숫자만 입력하세요.");
-        this.month = 1;
-      } 
-    }
-  },
+  // watch : {
+  //   month(inputM){ 
+  //     if(isNaN(inputM)){
+  //       alert("숫자만 입력하세요.");
+  //       this.month = 1;
+  //     } 
+  //   }
+  //},
   props: {
     onerooms: Array,
     selectedID: Number,
@@ -45,12 +44,12 @@ export default {
     closeModal() {
       this.$emit('closeModal');
     },
-    handleKeydown(event) {
-      if (event.key === ' ') {
-        event.preventDefault();
-        alert('스페이스바 입력불가.');
-      }
-    }
+    // handleKeydown(event) {
+    //   if (event.key === ' ') {
+    //     event.preventDefault();
+    //     alert('스페이스바 입력불가.');
+    //   }
+    // }
   }
 };
 </script>
