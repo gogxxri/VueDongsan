@@ -3,11 +3,13 @@
     <div class="menu">
       <a v-for="(nav, i) in menuItems" :key="i">{{ nav }}</a>
     </div>
-
+    <button @click="priceSort()">가격 낮은 순</button>
+    <button @click="priceHighSort()">가격 높은 순</button>
+    <button @click="nameSort()">가나다 순</button>
+    <button @click="sortBack()">기본 순</button>
     <DiscountBanner />
 
     <InfoCard v-for="(room) in onerooms" :key="room.id" @openModal="modalOpen=true; selectedID=$event" :room="room" @increase="increase"/>
-    
     <Transition name="fade">
       <DetailModal
         :onerooms="onerooms" :selectedID="selectedID" :modalOpen="modalOpen" @closeModal="closeModal"
@@ -26,6 +28,7 @@ export default {
   name: 'App',
   data() {
     return {
+      originOnerooms : [...onerooms], // 원본 데이터 유지
       selectedID: null,
       onerooms,
       menuItems: ['Home', 'Shop', 'About'],
@@ -46,6 +49,27 @@ export default {
     closeModal() {
       this.modalOpen = false;
     },
+    priceSort() {
+      this.onerooms.sort(function(a, b){
+        return a.price-b.price;
+      });
+    },
+    priceHighSort(){
+      this.onerooms.sort(function(a,b){
+        return b.price-a.price;
+      })
+    },
+    nameSort(){
+      this.onerooms.sort(function(a,b){
+        if(a.title < b.title)
+        return -1;
+      })
+    },
+    sortBack() {
+      // this.onerooms = this.originOnerooms; // array를 등호로 넣으면 왼쪽 오른쪽 값을 공유하게 됨
+      this.onerooms = [...this.originOnerooms] // 그래서 카피본을 만들어 넣어야함
+    }
+
   },
   components: {
     DetailModal,
