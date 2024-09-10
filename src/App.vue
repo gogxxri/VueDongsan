@@ -3,11 +3,12 @@
     <div class="menu">
       <a v-for="(nav, i) in menuItems" :key="i">{{ nav }}</a>
     </div>
+
+    <DiscountBanner v-if="showDiscount == true"/>
     <button @click="priceSort()">가격 낮은 순</button>
     <button @click="priceHighSort()">가격 높은 순</button>
     <button @click="nameSort()">가나다 순</button>
     <button @click="sortBack()">기본 순</button>
-    <DiscountBanner />
 
     <InfoCard v-for="(room) in onerooms" :key="room.id" @openModal="modalOpen=true; selectedID=$event" :room="room" @increase="increase"/>
     <Transition name="fade">
@@ -30,9 +31,10 @@ export default {
     return {
       originOnerooms : [...onerooms], // 원본 데이터 유지
       selectedID: null,
-      onerooms,
+      onerooms: [...onerooms],
       menuItems: ['Home', 'Shop', 'About'],
       modalOpen: false,
+      showDiscount : true,
     };
   },
   methods: {
@@ -75,6 +77,17 @@ export default {
     DetailModal,
     DiscountBanner,
     InfoCard
+  },
+  created(){ // 라이프 사이클 훅 (ajax 요청 시 데이터 요청) (mounted에서도 ajax 데이터 요청)
+              //html 생성 전 데이터만 존재할 때
+  },
+  beforeMounted(){ // 라이프 사이클 훅 (마운트 되기 전 실행할 것)
+
+  },
+  mounted(){ // 라이프 사이클 훅 (마운트 된 후)
+    setTimeout(()=>{ // this를 사용할 때 arrow function 사용해야함
+      this.showDiscount = false;
+    }, 20000)
   },
 };
 </script>
