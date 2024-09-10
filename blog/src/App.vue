@@ -25,6 +25,7 @@
     <div class="mt-4">
       <router-link to="/detail">디테일 페이지</router-link>
     </div>
+    
     <router-view :lists="lists"></router-view>
 
   </div>

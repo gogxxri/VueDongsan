@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div v-for="(list) in lists" :key="list.number" class="list-container" @click='handleDetail(list.number)'>
+        <div v-for="(list) in lists" :key="list.number" class="list-container" @click="$router.push(`detail/${list.number}`)">
+        <!--@click='handleDetail(list.number)'>-->
             <h5>{{list.title}}</h5>
             <div>{{list.date}}</div>
         </div>
