@@ -148,21 +148,6 @@ ul {
 .input-plus {
   cursor: pointer;
 }
-.morebtn{
-  background-color : transparent;
-  border : 2px solid skyblue;
-  border-radius : 20px;
-  padding : 5px 10px;
-  width:50px;
-  cursor : pointer;
-  transition: background-color 0.3s ease; 
-}
-
-.morebtn:hover {
-  background-color: skyblue;
-  color: white;
-}
-
 #app {
   box-sizing: border-box;
   font-family: "consolas";

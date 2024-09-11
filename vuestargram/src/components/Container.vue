@@ -9,11 +9,12 @@
             <div class="upload-image" :style="{ backgroundImage: `url(${uploadImg})` }"></div>
                 <div class="filters">
                     <FilterBox
-                    v-for="(filter, i) in filters"
-                    :key="i"
-                    :uploadImg="uploadImg"
-                    :filter="filter"
-                />
+                        v-for="(filter, i) in filters"
+                        :key="i"
+                        :uploadImg="uploadImg"
+                        :filter="filter"
+                    > <span>{{filter}}</span>
+                    </FilterBox>
             </div>
         </div>
 
@@ -62,8 +63,19 @@ background-size : cover;
 .filters{
 overflow-x:scroll;
 white-space: nowrap;
+display: flex;
+flex-direction: row;
 }
-
+.filter-1 {
+width: 100px;
+height: 100px;
+background-color: cornflowerblue;
+margin: 10px 10px 10px auto;
+padding: 8px;
+display: inline-block;
+color : white;
+background-size: cover;
+}
 .filters::-webkit-scrollbar {
 height: 5px;
 }
