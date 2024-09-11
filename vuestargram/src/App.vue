@@ -10,9 +10,9 @@
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container :posting="posting"/>
+    <Container :posting="posting" :step="step"/>
 
-    <div @click="more">더보기</div>
+    <div @click="more" class="morebtn" v-if="step==0">더보기</div>
     <div class="footer">
       <ul class="footer-button-plus">
         <input type="file" id="file" class="inputfile" />
@@ -20,12 +20,14 @@
       </ul>
     </div>
 
-    <button>버튼1</button>
-    <button>버튼2</button>
-    <button>버튼3</button>
-    <div>내용1</div>
-    <div>내용2</div>
-    <div>내용3</div>
+    <!-- 탭 만들기
+    <button @click="step = 0">버튼1</button>
+    <button @click="step = 1">버튼2</button>
+    <button @click="step = 2">버튼3</button>
+    <div v-if="step == 0">내용1</div>
+    <div v-if="step == 1">내용2</div>
+    <div v-if="step == 2">내용3</div> 
+    -->
   </div>
 </template>
 
@@ -49,10 +51,6 @@ export default {
   },
   methods : {
     more(){
-      // axios.post('url', {name : 'kim'}).then().catch((err) => {
-      //   err
-      // })
-
       axios.get(`https://codingapple1.github.io/vue/more${this.moreCnt}.json`)
       .then (res => {
         this.posting.push(res.data);
@@ -135,6 +133,21 @@ ul {
 .input-plus {
   cursor: pointer;
 }
+.morebtn{
+  background-color : transparent;
+  border : 2px solid skyblue;
+  border-radius : 20px;
+  padding : 5px 10px;
+  width:50px;
+  cursor : pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.morebtn:hover {
+  background-color: skyblue;
+  color: white;
+}
+
 #app {
   box-sizing: border-box;
   font-family: "consolas";
