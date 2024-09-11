@@ -2,32 +2,24 @@
   <div>
     <div class="header">
       <ul class="header-button-left">
-        <li>Cancel</li>
+        <li @click="step -= 1">Cancel</li>
       </ul>
       <ul class="header-button-right">
-        <li>Next</li>
+        <li v-if="step!==2" @click="step += 1">Next</li>
+        <li v-if="step==2" @click="publish">발행</li>
       </ul>
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container :posting="posting" :step="step"/>
+    <Container :posting="posting" :step="step" :uploadImg="uploadImg" @write="mycontent=$event"/>
 
     <div @click="more" class="morebtn" v-if="step==0">더보기</div>
     <div class="footer">
       <ul class="footer-button-plus">
-        <input type="file" id="file" class="inputfile" />
+        <input @change="upload" accept="image/*" type="file" id="file" class="inputfile" />
         <label for="file" class="input-plus">+</label>
       </ul>
     </div>
-
-    <!-- 탭 만들기
-    <button @click="step = 0">버튼1</button>
-    <button @click="step = 1">버튼2</button>
-    <button @click="step = 2">버튼3</button>
-    <div v-if="step == 0">내용1</div>
-    <div v-if="step == 1">내용2</div>
-    <div v-if="step == 2">내용3</div> 
-    -->
   </div>
 </template>
 
@@ -44,6 +36,8 @@ export default {
       originposting : [...postingData],
       moreCnt : 0,
       step : 0,
+      uploadImg : null,
+      mycontent : null,
     }
   },
   components : {
@@ -60,6 +54,27 @@ export default {
       .catch(()=>{
         alert("불러올 게시물 없음")
       })
+    },
+    upload(e){
+      const file = e.target.files[0];
+      this.uploadImg = URL.createObjectURL(file);
+      console.log(this.uploadImg)
+      this.step = 1;
+    },
+    publish(){
+      let mypost = {      
+        name: "gyuri",
+        userImage: "https://picsum.photos/100?random=5",
+        postImage: this.uploadImg,
+        likes: 49,
+        date: "Apr 4",
+        liked: false,
+        content: this.mycontent,
+        filter: "lofi"
+      };
+      console.log(mypost)
+      this.posting.unshift(mypost);
+      this.step = 0;
     }
   }
 }
