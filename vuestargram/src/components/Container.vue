@@ -5,14 +5,15 @@
         </div>
 
         <!-- 필터선택페이지 -->
-        <div v-if="step==1">
-            <div class="upload-image" :style="{backgroundImage:`url(${uploadImg})`}"></div>
-            <div class="filters">
-                <div class="filter-1"></div>
-                <div class="filter-1"></div>
-                <div class="filter-1"></div>
-                <div class="filter-1"></div>
-                <div class="filter-1"></div>
+        <div v-if="step === 1">
+            <div class="upload-image" :style="{ backgroundImage: `url(${uploadImg})` }"></div>
+                <div class="filters">
+                    <FilterBox
+                    v-for="(filter, i) in filters"
+                    :key="i"
+                    :uploadImg="uploadImg"
+                    :filter="filter"
+                />
             </div>
         </div>
 
@@ -27,9 +28,18 @@
 </template>
 
 <script>
+import FilterBox from './FilterBox.vue';
 import Post from './Post';
+
 export default {
     name : 'ContainerComponent',
+    data(){
+    return {
+        filters : [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
+                    "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
+                    "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"]
+        }
+    },
     props : {
         posting : Array,
         step : Number,
@@ -37,6 +47,7 @@ export default {
     },
     components : {
         Post,
+        FilterBox,
     }
 }
 </script>
@@ -52,16 +63,7 @@ background-size : cover;
 overflow-x:scroll;
 white-space: nowrap;
 }
-.filter-1 {
-width: 100px;
-height: 100px;
-background-color: cornflowerblue;
-margin: 10px 10px 10px auto;
-padding: 8px;
-display: inline-block;
-color : white;
-background-size: cover;
-}
+
 .filters::-webkit-scrollbar {
 height: 5px;
 }
