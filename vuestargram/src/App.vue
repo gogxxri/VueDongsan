@@ -11,7 +11,7 @@
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <Container :posting="posting" :step="step" :uploadImg="uploadImg" @write="mycontent=$event"/>
+    <Container :selectedFilter="selectedFilter" :posting="posting" :step="step" :uploadImg="uploadImg" @write="mycontent=$event"/>
 
     <div @click="more" class="morebtn" v-if="step==0">더보기</div>
     <div class="footer">
@@ -38,6 +38,7 @@ export default {
       step : 0,
       uploadImg : null,
       mycontent : null,
+      selectedFilter : null,
     }
   },
   components : {
@@ -70,12 +71,17 @@ export default {
         date: "Apr 4",
         liked: false,
         content: this.mycontent,
-        filter: "lofi"
+        filter: this.selectedFilter,
       };
       console.log(mypost)
       this.posting.unshift(mypost);
       this.step = 0;
-    }
+    },
+  },
+  mounted() {
+      this.emitter.on('sendFilter', (msg) => {
+      this.selectedFilter = msg;
+    });
   }
 }
 </script>

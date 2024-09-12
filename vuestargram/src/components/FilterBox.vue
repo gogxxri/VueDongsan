@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="'filter-item ' + filter" :style="{ backgroundImage: `url(${uploadImg})` }">
+        <div :class="'filter-item ' + filter" @click="fire" :style="{ backgroundImage: `url(${uploadImg})` } ">
             <div class="overlay">
                 <slot></slot> <!--html 내용물을 데이터 바인딩 하고싶을 때만 사용가능-->
             </div>
@@ -11,6 +11,16 @@
 <script>
 export default {
     name : "filterBoxComponent",
+    data(){
+        return{
+
+        }
+    },
+    methods: {
+        fire() {
+            this.emitter.emit('sendFilter', this.filter);
+        }
+    },
     props : {
         uploadImg : String,
         filter : String,
