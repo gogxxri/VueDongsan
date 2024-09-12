@@ -10,7 +10,10 @@
       </ul>
       <img src="./assets/logo.png" class="logo" />
     </div>
-    
+    <h4>안녕{{$store.state.name}}</h4>
+    <button @click="$store.commit('nameChange')">박으로 변경</button>
+    <h4>나이 {{$store.state.age}}</h4>
+    <button @click="$store.commit('plus', 20)">나이 +</button>
     <Container :selectedFilter="selectedFilter" :posting="posting" :step="step" :uploadImg="uploadImg" @write="mycontent=$event"/>
 
     <div @click="more" class="morebtn" v-if="step==0">더보기</div>
