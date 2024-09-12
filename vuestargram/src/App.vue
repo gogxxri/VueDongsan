@@ -10,7 +10,7 @@
       </ul>
       <img src="./assets/logo.png" class="logo" />
     </div>
-
+    
     <Container :selectedFilter="selectedFilter" :posting="posting" :step="step" :uploadImg="uploadImg" @write="mycontent=$event"/>
 
     <div @click="more" class="morebtn" v-if="step==0">더보기</div>
