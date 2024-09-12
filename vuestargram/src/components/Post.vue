@@ -20,6 +20,7 @@ export default {
     name : 'postComponent',
     props : {
         posting : Array,
+
     },
 }
 </script>

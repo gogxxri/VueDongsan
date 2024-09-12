@@ -3,16 +3,19 @@ import { createStore } from 'vuex'
 const store = createStore({
   state(){
     return {
-      name:'kim',
-      age : 20,
+      likes : 0,
+      clickCnt : false,
     }
   },
   mutations : { // 데이터 수정 방법 정의
-    nameChange(state){
-        state.name = 'park'
-    },
-    plus(state, payload){
-        state.age += payload
+    toggleClick(state){
+        if(state.clickCnt == false){
+            state.likes +=1
+            state.clickCnt=true;
+        } else {
+            state.likes -=1;
+            state.clickCnt= false;
+        }
     }
   }
 })
