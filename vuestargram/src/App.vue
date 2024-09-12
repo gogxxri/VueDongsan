@@ -12,8 +12,16 @@
     </div>
 
     <!-- <div @click="$store.commit('toggleClick')">❤ {{$store.state.likes}}</div> -->
-    <p>{{$store.state.morePosting}}</p>
-    <button @click="$store.dispatch('getData')">더보기 버튼</button>
+    <!-- <p>{{$store.state.morePosting}}</p>
+    <button @click="$store.dispatch('getData')">더보기 버튼</button> -->
+
+    <p>{{now()}} {{counter}}</p> <!-- 버튼 누를때마다 재랜더링(methods)-->
+    <p>{{now2}} {{counter}}</p> <!-- 처음 로드될 때 값 간직 (computed)-->
+    <button @click="counter++">버튼</button>
+    <p>{{likes}}</p>
+    <p>{{clickCnt}}</p>
+    <p>{{라이크}}</p>
+    <p @click="toggleClick">❤ {{$store.state.likes}}</p>
    
     <Container :selectedFilter="selectedFilter" :posting="posting" :step="step" :uploadImg="uploadImg" @write="mycontent=$event"/>
 
@@ -31,6 +39,7 @@
 import Container from './components/Container.vue'
 import postingData from './assets/PostingData'
 import axios from 'axios'
+import {mapState, mapMutations} from 'vuex'
 
 export default {
   name: 'App',
@@ -43,6 +52,7 @@ export default {
       uploadImg : null,
       mycontent : null,
       selectedFilter : null,
+      counter : 0
     }
   },
   components : {
@@ -81,6 +91,20 @@ export default {
       this.posting.unshift(mypost);
       this.step = 0;
     },
+    ...mapMutations(['setMore', 'likes', 'toggleClick']),
+    now(){
+      return new Date() // 사용할 때 마다 실행
+    }
+  },
+  computed : { // 계산 결과 저장용 함수
+    now2(){
+      return new Date() // 필요할때만 실행, vue파일이 로드되었을때 실행하고 값을 간직함
+    },
+    likes(){
+      return this.$store.state.likes
+    },
+    ...mapState(['likes', 'clickCnt']),
+    ...mapState({라이크 : 'likes'})
   },
   mounted() {
       this.emitter.on('sendFilter', (msg) => {
