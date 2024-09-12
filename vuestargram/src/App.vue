@@ -48,7 +48,7 @@ export default {
       posting : [...postingData],
       originposting : [...postingData],
       moreCnt : 0,
-      step : 3,
+      step : 0,
       uploadImg : null,
       mycontent : null,
       selectedFilter : null,
