@@ -11,7 +11,9 @@
       <img src="./assets/logo.png" class="logo" />
     </div>
 
-    <div @click="$store.commit('toggleClick')">❤ {{$store.state.likes}}</div>
+    <!-- <div @click="$store.commit('toggleClick')">❤ {{$store.state.likes}}</div> -->
+    <p>{{$store.state.morePosting}}</p>
+    <button @click="$store.dispatch('getData')">더보기 버튼</button>
    
     <Container :selectedFilter="selectedFilter" :posting="posting" :step="step" :uploadImg="uploadImg" @write="mycontent=$event"/>
 
@@ -28,7 +30,7 @@
 <script>
 import Container from './components/Container.vue'
 import postingData from './assets/PostingData'
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'App',
