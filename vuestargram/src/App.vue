@@ -15,13 +15,13 @@
     <!-- <p>{{$store.state.morePosting}}</p>
     <button @click="$store.dispatch('getData')">더보기 버튼</button> -->
 
-    <p>{{now()}} {{counter}}</p> <!-- 버튼 누를때마다 재랜더링(methods)-->
-    <p>{{now2}} {{counter}}</p> <!-- 처음 로드될 때 값 간직 (computed)-->
+    <!-- <p>{{now()}} {{counter}}</p> 버튼 누를때마다 재랜더링(methods)
+    <p>{{now2}} {{counter}}</p> 처음 로드될 때 값 간직 (computed)
     <button @click="counter++">버튼</button>
     <p>{{likes}}</p>
     <p>{{clickCnt}}</p>
     <p>{{라이크}}</p>
-    <p @click="toggleClick">❤ {{$store.state.likes}}</p>
+    <p @click="toggleClick">❤ {{$store.state.likes}}</p> -->
    
     <Container :selectedFilter="selectedFilter" :posting="posting" :step="step" :uploadImg="uploadImg" @write="mycontent=$event"/>
 
@@ -48,7 +48,7 @@ export default {
       posting : [...postingData],
       originposting : [...postingData],
       moreCnt : 0,
-      step : 0,
+      step : 3,
       uploadImg : null,
       mycontent : null,
       selectedFilter : null,
@@ -91,7 +91,6 @@ export default {
       this.posting.unshift(mypost);
       this.step = 0;
     },
-    ...mapMutations(['setMore', 'likes', 'toggleClick']),
     now(){
       return new Date() // 사용할 때 마다 실행
     }
@@ -104,7 +103,8 @@ export default {
       return this.$store.state.likes
     },
     ...mapState(['likes', 'clickCnt']),
-    ...mapState({라이크 : 'likes'})
+    ...mapState({라이크 : 'likes'}),
+    ...mapMutations(['setMore', 'likes', 'toggleClick']),
   },
   mounted() {
       this.emitter.on('sendFilter', (msg) => {

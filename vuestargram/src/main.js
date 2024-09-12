@@ -10,6 +10,7 @@ let app = createApp(App);
 app.config.globalProperties.emitter = emitter;
 
 import store from './store.js'
+import './registerServiceWorker'
 
 // createApp(App).mount('#app')
 // createApp을 상단에 app 변수에 저장했기 때문에
