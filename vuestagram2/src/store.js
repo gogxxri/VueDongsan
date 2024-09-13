@@ -21,6 +21,11 @@ const store = createStore({
         increaseMoreCnt(state){
             state.moreCnt += 1;
         },
+        toggleLike(state, idx){
+            const post = state.postingData[idx];
+            post.liked=!post.liked;
+            post.likes += post.liked ? 1 : -1;
+        }
         
     },
     actions : { // ajax요청하거나 오래 걸리는 작업 하는 곳
@@ -43,6 +48,9 @@ const store = createStore({
                 console.error("데이터 로딩 실패:", error);
                 alert("더이상 없음")
             })
+        },
+        toggleLike(context, idx){
+            context.commit('toggleLike', idx)
         }
     }, 
 })

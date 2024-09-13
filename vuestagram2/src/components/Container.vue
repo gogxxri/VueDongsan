@@ -9,12 +9,13 @@
                 <div class="posting-image" :class="posting.filter">
                     <img :src="posting.postImage" />
                 </div>
-                <div class="posting-content">
+                <div class="likes-date">
+                    <div @click="toggleLike(i)" :class="{'liked': posting.liked, 'not-liked': !posting.liked}">
+                        <span>❤</span> {{ posting.likes }}</div>
                     <div>{{ posting.date }}</div>
-                    <div>{{ posting.content }}</div>
                 </div>
-                <div>
-                    <div class="likes">❤ {{ posting.likes }}</div>
+                <div class="posting-content">
+                    <div>{{ posting.content }}</div>
                 </div>
             </div>
             <div v-if="isLoading" class="loading">Loading...</div>
@@ -45,6 +46,10 @@ export default {
             if (bottom && !this.isLoading) {
                 this.loadMore();
             }
+        },
+        toggleLike(idx) {
+            this.$store.dispatch('toggleLike', idx);
+            console.log(this.postingData)
         }
     },
     computed: {
@@ -63,6 +68,8 @@ export default {
     height: 100vh;
     overflow: hidden;
     position: relative;
+    background-color:black;
+    color : white;
 }
 
 .scroll-content {
@@ -81,7 +88,7 @@ export default {
 .main-userInfo {
     display: flex;
     flex-direction: row;
-    padding: 1rem 0;
+    padding: 1rem 0.5rem;
 }
 
 .user-image {
@@ -104,15 +111,28 @@ export default {
 }
 
 .posting-content {
-    padding: 1rem 0;
+    padding: 1rem 0.5rem;
 }
 
-.likes {
-    text-align: right;
+.likes-date {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .loading {
     text-align: center;
     padding: 1rem;
 }
+
+.liked  span{
+    color: red;
+    cursor: pointer;
+}
+
+.not-liked span {
+    color: white;
+    cursor: pointer;
+}
+
 </style>
