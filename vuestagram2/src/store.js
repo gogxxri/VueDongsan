@@ -14,7 +14,14 @@ const store = createStore({
     mutations : { // 데이터 수정 방법 정의
         setPostingData(state, data) {
             state.postingData = data
-        }
+        },
+        setMoreData(state, data){
+            state.postingData.push(data)
+        },
+        increaseMoreCnt(state){
+            state.moreCnt += 1;
+        },
+        
     },
     actions : { // ajax요청하거나 오래 걸리는 작업 하는 곳
         getPostingData(context){
@@ -27,11 +34,14 @@ const store = createStore({
         },
         getMoreData(context){
             axios.get(`https://codingapple1.github.io/vue/more${context.state.moreCnt}.json`)
-            .then(()=>{
-                
+            .then((res)=>{
+                console.log(res.data)
+                context.commit('setMoreData', res.data)
+                context.commit('increaseMoreCnt');
             })
-            .catch(()=>{
-                
+            .catch((error)=>{
+                console.error("데이터 로딩 실패:", error);
+                alert("더이상 없음")
             })
         }
     }, 
