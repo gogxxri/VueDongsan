@@ -42,7 +42,7 @@ export default {
         },
         handleScroll(event) {
             const container = event.target;
-            const bottom = container.scrollHeight === container.scrollTop + container.clientHeight;
+            const bottom = container.scrollHeight - container.scrollTop - container.clientHeight <= 10;
             if (bottom && !this.isLoading) {
                 this.loadMore();
             }
@@ -50,6 +50,10 @@ export default {
         toggleLike(idx) {
             this.$store.dispatch('toggleLike', idx);
             console.log(this.postingData)
+        },
+        getPostingData(){
+            this.$store.dispatch('getPostingData');
+            console.log("gg", this.postingData)
         }
     },
     computed: {
@@ -57,9 +61,6 @@ export default {
             return this.$store.state.postingData;
         }
     },
-    mounted() {
-        this.$store.dispatch('getPostingData');
-    }
 }
 </script>
 
@@ -67,7 +68,80 @@ export default {
 .scroll-container {
     height: 100vh;
     overflow: hidden;
-    position: relative;
+    background-color:black;
+    color : white;
+}
+
+.scroll-content {
+    height: 100%;
+    overflow-y: scroll; /* 실제 컨텐츠에만 스크롤 바를 적용 */
+}
+
+.scroll-content::-webkit-scrollbar {
+    display: none; /* 웹킷 기반 브라우저에서 스크롤 바를 숨김 */
+}
+
+.main-section {
+    margin-bottom: 1rem; 
+}
+
+.main-userInfo {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 0.5rem;
+}
+
+.user-image {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.user-name {
+    text-align: center;
+    align-content: center;
+}
+
+.posting-image img {
+    width: 100%;
+}
+
+.posting-content {
+    padding: 1rem 0.5rem;
+}
+
+.likes-date {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.loading {
+    text-align: center;
+    padding: 1rem;
+}
+
+.liked  span{
+    color: red;
+    cursor: pointer;
+}
+
+.not-liked span {
+    color: white;
+    cursor: pointer;
+}
+
+</style>
+
+
+<style>
+.scroll-container {
+    height: 100vh;
+    overflow: hidden;
     background-color:black;
     color : white;
 }

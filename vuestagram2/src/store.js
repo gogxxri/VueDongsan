@@ -8,15 +8,17 @@ const store = createStore({
         moreCnt : 0,
         filters: [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
                  "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
-                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2" ]
+                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2" ],
+        uploadImage : [],
+        selectedFilter : null,
     }
   },
     mutations : { // 데이터 수정 방법 정의
         setPostingData(state, data) {
-            state.postingData = data
+            state.postingData = ([...data])
         },
         setMoreData(state, data){
-            state.postingData.push(data)
+            state.postingData.push(...data);
         },
         increaseMoreCnt(state){
             state.moreCnt += 1;
@@ -25,7 +27,23 @@ const store = createStore({
             const post = state.postingData[idx];
             post.liked=!post.liked;
             post.likes += post.liked ? 1 : -1;
-        }
+        },
+        addUploadImage(state, file){
+            state.uploadImage = [file];
+        },
+        clearUploadImage(state){
+            state.uploadImage = [];
+        },
+        clearSelectedFilter(state){
+            state.selectedFilter = null;
+        },
+        setSelectedFilter(state, data){
+            state.selectedFilter = data;
+        },
+        addNewPosting(state, data) {
+            state.postingData = [data, ...state.postingData];
+            console.log(this.postingData)
+         }
         
     },
     actions : { // ajax요청하거나 오래 걸리는 작업 하는 곳
@@ -46,13 +64,31 @@ const store = createStore({
             })
             .catch((error)=>{
                 console.error("데이터 로딩 실패:", error);
-                alert("더이상 없음")
+                console.log("더이상 없음")
             })
         },
         toggleLike(context, idx){
             context.commit('toggleLike', idx)
-        }
+        },
+        uploadImage(context, file){
+            context.commit('addUploadImage', file)
+        },
+        uploadPosting(context, data) {
+            context.commit('addNewPosting', data);
+            console.log('새 포스팅 추가:', data);
+          }
     }, 
+    getters: {
+        getUploadImage(state) {
+          return state.uploadImage;
+        },
+        getFilters(state) {
+            return state.filters;
+        },
+        getSelectedFilter(state){
+            return state.selectedFilter;
+        },
+    }
 })
 
 export default store
