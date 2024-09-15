@@ -3,9 +3,11 @@
     <header class="header">
       <div class="logo"><img src="./assets/logo.png" alt="logo"/></div>
       <div class="vuestar">VueStargram</div>
-      <div ><router-link to="/newposting" class="plusBtn"> + </router-link> </div>
     </header>
     <router-view></router-view>
+    <footer class="footer" v-if="isHomePage">
+      <div ><router-link to="/newposting" class="plusBtn"> + </router-link> </div>
+    </footer>
   </div>
 </template>
 
@@ -15,12 +17,17 @@
 export default {
   name: 'App',
   data(){
-  return {
-    filters : [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
-               "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
-               "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"]
+    return {
+      filters : [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
+                "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
+                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"]
+    }
+  },
+  computed : {
+    isHomePage() {
+       return this.$route.path === '/';
+     }
   }
-},
 }
 </script>
 
@@ -45,11 +52,21 @@ export default {
    flex : 1;
    text-align: center;
 }
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0.5rem;
+  position: sticky;
+  bottom:0;
+  background-color: black;
+}
 .plusBtn {
-  margin-left : 1rem;
   cursor: pointer;
   text-decoration: none;
   color : white;
+  text-align: center;
+  font-size : 1.5rem;
 }
 
 #app {
