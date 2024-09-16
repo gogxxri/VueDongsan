@@ -3,6 +3,7 @@
     <header class="header">
       <div class="logo"><img src="./assets/logo.png" alt="logo"/></div>
       <div class="vuestar">VueStargram</div>
+      <div class="mypage-btn"><router-link to="/follower"><img src="./assets/mypage.png" alt="mypage"/></router-link></div>
     </header>
     <router-view></router-view>
     <footer class="footer" v-if="isHomePage">
@@ -60,6 +61,9 @@ export default {
   position: sticky;
   bottom:0;
   background-color: black;
+}
+.mypage-btn img{
+  width:1.5rem
 }
 .plusBtn {
   cursor: pointer;

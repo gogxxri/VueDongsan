@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import MainPage from './pages/MainPage.vue';
 import NewPostingPage from './pages/NewPostingPage.vue';
+import FollowerPage from './pages/FollowerPage.vue';
 
 const routes = [
   {
@@ -10,6 +11,10 @@ const routes = [
   {
     path : "/newposting",
     component : NewPostingPage,
+  },
+  {
+    path : "/follower",
+    component : FollowerPage,
   },
   {
     path : "/:nonePage(.*)",
