@@ -66,21 +66,20 @@
 </template>
 
 <script>
-
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
-    name : 'newPostingPage',
-    data(){
-        return{
-            postingStep : 0,
-            postingContent : '',
-        }
-    },
-     methods: {
-        ...mapActions(['uploadImage', 'uploadPosting']),
-        ...mapMutations(['setSelectedFilter', 'clearSelectedFilter', 'clearUploadImage']),
-        ...mapGetters(['getNewPosting']),
+  name: 'newPostingPage',
+  data() {
+    return {
+      postingStep: 0,
+      postingContent: '',
+    };
+  },
+   methods: {
+        ...mapActions('posting', ['uploadImage', 'uploadPosting']),
+        ...mapMutations('posting',['setSelectedFilter', 'clearSelectedFilter', 'clearUploadImage']),
+        ...mapGetters('posting',['getNewPosting']),
         fileUpload(e) {
             const file = e.target.files[0];
             if (file) {
@@ -144,7 +143,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getUploadImage', 'getFilters', 'getSelectedFilter']),
+        ...mapGetters('posting',['getUploadImage', 'getFilters', 'getSelectedFilter']),
         imageUrl() {
             return this.getUploadImage.length > 0 ? URL.createObjectURL(this.getUploadImage[0]) : null;
         },
@@ -157,6 +156,8 @@ export default {
     },
 }
 </script>
+
+
 
 <style>
 .main {

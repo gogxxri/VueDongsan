@@ -14,12 +14,10 @@ export default {
   },
   computed :{
     postingData(){
-      return this.$store.state.postingData;
+      return this.$store.state.posting.postingData;
     }
   },
-  mounted(){
-    this.$store.dispatch('getPostingData')
-  }
+  
 }
 </script>
 

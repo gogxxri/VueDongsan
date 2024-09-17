@@ -36,7 +36,7 @@ export default {
     async loadMore() {
       if (this.isLoading) return;
       this.isLoading = true;
-      await this.$store.dispatch('getMoreData');
+      await this.$store.dispatch('posting/getMoreData'); 
       this.isLoading = false;
     },
     handleScroll(event) {
@@ -47,22 +47,23 @@ export default {
       }
     },
     toggleLike(idx) {
-      this.$store.dispatch('toggleLike', idx);
+      this.$store.dispatch('posting/toggleLike', idx); 
     },
     async getPostingData() {
-      await this.$store.dispatch('getPostingData');
+      await this.$store.dispatch('posting/getPostingData'); 
     }
   },
   computed: {
     postingData() {
-      return this.$store.state.postingData;
+      return this.$store.state.posting.postingData; 
     }
   },
   mounted() {
     this.getPostingData();
-    this.$store.commit('resetMoreCnt');
+    this.$store.commit('posting/resetMoreCnt');
   }
 }
+
 </script>
 
 <style>
@@ -75,11 +76,11 @@ export default {
 
 .scroll-content {
   height: 100%;
-  overflow-y: scroll; /* 실제 컨텐츠에만 스크롤 바를 적용 */
+  overflow-y: scroll;
 }
 
 .scroll-content::-webkit-scrollbar {
-  display: none; /* 웹킷 기반 브라우저에서 스크롤 바를 숨김 */
+  display: none;
 }
 
 .main-section {
